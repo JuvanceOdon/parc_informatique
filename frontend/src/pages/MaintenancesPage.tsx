@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, IconButton, TextField, Tooltip } from '@mui/material';
+import { Alert, Box, Button, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, type GridColDef, type GridRowParams } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
@@ -8,6 +8,7 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { useMemo, useState } from 'react';
 import { maintenancesApi } from '../api/services';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { ListPanel } from '../components/ListPanel';
 import { MaintenanceFormDialog } from '../components/forms/MaintenanceFormDialog';
 import { MaintenanceStatutDialog } from '../components/forms/MaintenanceStatutDialog';
 import { PageHeader } from '../components/PageHeader';
@@ -195,37 +196,32 @@ export const MaintenancesPage = () => {
         }
       />
       {(error || actionError) && <Alert severity="error" className="mb-4">{error ?? actionError}</Alert>}
-      <Card>
-        <Box className="p-4">
-          <TextField
-            size="small"
-            label="Rechercher"
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="mb-4 w-full max-w-sm"
-          />
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            loading={loading}
-            autoHeight
-            disableRowSelectionOnClick
-            paginationMode="server"
-            rowCount={meta.total}
-            paginationModel={{ page, pageSize }}
-            onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
-            onRowDoubleClick={
-              isStaff
-                ? (params: GridRowParams<MaintenanceRow>) => {
-                    if (!isMaintenanceTerminal(params.row.statut)) void openEdit(params.row.id);
-                  }
-                : undefined
-            }
-            pageSizeOptions={[10, 25, 50]}
-            sx={isStaff ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : undefined}
-          />
-        </Box>
-      </Card>
+      <ListPanel
+        search={search}
+        onSearchChange={(v) => { setSearch(v); setPage(0); }}
+        searchPlaceholder="Rechercher une maintenance…"
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          disableRowSelectionOnClick
+          rowHeight={56}
+          paginationMode="server"
+          rowCount={meta.total}
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
+          onRowDoubleClick={
+            isStaff
+              ? (params: GridRowParams<MaintenanceRow>) => {
+                  if (!isMaintenanceTerminal(params.row.statut)) void openEdit(params.row.id);
+                }
+              : undefined
+          }
+          pageSizeOptions={[10, 25, 50]}
+          sx={{ height: '100%', ...(isStaff ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : {}) }}
+        />
+      </ListPanel>
 
       <MaintenanceFormDialog
         open={createOpen}

@@ -1,4 +1,4 @@
-import { and, count, eq, gte, inArray, lte, ne, sql } from 'drizzle-orm';
+import { and, asc, count, desc, eq, gte, inArray, lte, ne, sql } from 'drizzle-orm';
 import { db } from '../../database/connection.js';
 import { materiels } from '../../database/schema/materiels.schema.js';
 import { categories } from '../../database/schema/categories.schema.js';
@@ -21,16 +21,31 @@ import { MaintenanceStatut, MaintenanceType } from '../../shared/constants/maint
 import { AffectationStatut } from '../../shared/constants/affectation.constants.js';
 import type { IDashboardRepository } from './dashboard.interfaces.js';
 import type {
+  ActiveMaintenanceRow,
   DashboardKpi,
+  GarantieRow,
   GroupCountRow,
   MonthlyTicketCountRow,
   MonthlyTypeCountRow,
+  OpenTicketRow,
 } from './dashboard.types.js';
 
 const ACTIVE_MATERIEL_CONDITION = and(
   eq(materiels.actif, true),
   ne(materiels.statut, MaterielStatut.REFORME),
 );
+
+const OPEN_TICKET_STATUTS = [
+  TicketStatut.OUVERT,
+  TicketStatut.EN_COURS,
+  TicketStatut.EN_ATTENTE,
+];
+
+const ACTIVE_MAINTENANCE_STATUTS = [
+  MaintenanceStatut.PLANIFIEE,
+  MaintenanceStatut.EN_COURS,
+  MaintenanceStatut.DIAGNOSTIC,
+];
 
 const getToday = (): string => new Date().toISOString().slice(0, 10);
 
@@ -347,6 +362,74 @@ export class DashboardRepository implements IDashboardRepository {
         { mois, statut: 'RESOLUS', count: resolvedMap[mois] ?? 0 },
         { mois, statut: 'FERMES', count: closedMap[mois] ?? 0 },
       ]);
+  }
+
+  async getOpenTickets(): Promise<OpenTicketRow[]> {
+    return db
+      .select({
+        id: tickets.id,
+        numeroTicket: tickets.numeroTicket,
+        titre: tickets.titre,
+        priorite: tickets.priorite,
+        statut: tickets.statut,
+        createdAt: tickets.createdAt,
+        assigneeId: tickets.assigneeId,
+        demandeurId: tickets.demandeurId,
+      })
+      .from(tickets)
+      .where(inArray(tickets.statut, OPEN_TICKET_STATUTS))
+      .orderBy(desc(tickets.createdAt));
+  }
+
+  async getActiveMaintenances(): Promise<ActiveMaintenanceRow[]> {
+    return db
+      .select({
+        id: maintenances.id,
+        numeroMaintenance: maintenances.numeroMaintenance,
+        titre: maintenances.titre,
+        type: maintenances.type,
+        statut: maintenances.statut,
+        datePlanifiee: maintenances.datePlanifiee,
+        dateDebut: maintenances.dateDebut,
+        technicienId: maintenances.technicienId,
+        materielId: maintenances.materielId,
+      })
+      .from(maintenances)
+      .where(inArray(maintenances.statut, ACTIVE_MAINTENANCE_STATUTS))
+      .orderBy(asc(maintenances.datePlanifiee), desc(maintenances.createdAt));
+  }
+
+  async getGarantiesExpirant(days = 30): Promise<GarantieRow[]> {
+    const today = getToday();
+    const until = getDateInDays(days);
+
+    const rows = await db
+      .select({
+        id: materiels.id,
+        codeMateriel: materiels.codeMateriel,
+        designation: materiels.designation,
+        dateFinGarantie: materiels.dateFinGarantie,
+      })
+      .from(materiels)
+      .where(
+        and(
+          ACTIVE_MATERIEL_CONDITION,
+          sql`${materiels.dateFinGarantie} IS NOT NULL`,
+          gte(materiels.dateFinGarantie, today),
+          lte(materiels.dateFinGarantie, until),
+        ),
+      )
+      .orderBy(asc(materiels.dateFinGarantie))
+      .limit(12);
+
+    return rows
+      .filter((row): row is typeof row & { dateFinGarantie: string } => row.dateFinGarantie != null)
+      .map((row) => ({
+        id: row.id,
+        codeMateriel: row.codeMateriel,
+        designation: row.designation,
+        dateFinGarantie: row.dateFinGarantie,
+      }));
   }
 }
 

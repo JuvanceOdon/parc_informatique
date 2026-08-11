@@ -16,7 +16,7 @@ export const AppLayout = () => (
       }}
     >
       <TopBar />
-      <Box className="p-6">
+      <Box className="px-4 py-5 sm:px-6 sm:py-6">
         <Outlet />
       </Box>
     </Box>

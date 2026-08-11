@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rapports - Parc Informatique MFA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#d4e4fc",
+                        "on-secondary-fixed-variant": "#204877",
+                        "secondary-fixed": "#d4e3ff",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#ccdbf4",
+                        "tertiary": "#321b00",
+                        "primary-container": "#1a365d",
+                        "inverse-primary": "#adc7f7",
+                        "primary-fixed-dim": "#adc7f7",
+                        "outline": "#74777f",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#f2bc82",
+                        "secondary": "#3b6090",
+                        "secondary-fixed-dim": "#a5c8ff",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-surface": "#223144",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c4c6cf",
+                        "on-tertiary-container": "#c6955e",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#2e5484",
+                        "on-secondary-fixed": "#001c3a",
+                        "on-primary-container": "#86a0cd",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-primary-fixed": "#001b3c",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d4e4fc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "tertiary-container": "#4f2e00",
+                        "on-surface": "#0d1c2e",
+                        "secondary-container": "#a5c8ff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#455f88",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#43474e",
+                        "on-background": "#0d1c2e",
+                        "on-tertiary-fixed-variant": "#633f0f",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed": "#ffddba",
+                        "primary": "#002045",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max-width": "1440px",
+                        "base": "8px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "sidebar-width": "280px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-md bg-primary dark:bg-primary text-on-primary dark:text-on-primary font-body-md text-body-md fixed left-0 top-0 w-[280px] shadow-lg z-20">
+<div class="px-lg pb-xl border-b border-on-primary-fixed-variant mb-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 object-contain bg-white rounded" data-alt="A minimalist, modern vector logo depicting a stylized shield and computer network nodes in navy blue and muted gold, conveying security and technology for a government ministry. High contrast, professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1syCIj3PdTrtw9plhLqyvROXRdwqgFeqzXEdXJwWJ7eJEv0eFgpN-yYe_D7JCE1p_RldGVlnk2dZplY08LxicZfcVkNRh61kVACRPbMX70FiWjLUO2OV-e4O3P1hQZNQHXIX4VwZTnxir8YZaumaCG9BP3ji3rgDQV9tw_YPa6XhChB4YzKmBkWurknHwqnPQAi-fShpBZdv2RBiHIuE352AvBlbdErwlgvkP8nAEM-O49VHat9Iq"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary leading-tight">Parc Informatique MFA</h1>
+<p class="font-label-caps text-label-caps text-on-primary-container mt-1 uppercase">Ministère des Forces Armées</p>
+</div>
+</div>
+</div>
+<ul class="flex-1 overflow-y-auto px-md space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Tableau de bord
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="computer">computer</span>
+                    Matériels
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+                    Affectations
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                    Tickets
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+                    Maintenances
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+                    Catégories
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                    Services
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                    Utilisateurs
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-on-primary-fixed-variant border-l-4 border-tertiary-fixed text-on-primary font-bold transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                    Rapports
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Journal d'audit
+                </a>
+</li>
+</ul>
+<div class="px-md mt-auto pt-4 border-t border-on-primary-fixed-variant">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        Paramètres
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-primary-container hover:bg-primary-container hover:text-on-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        Déconnexion
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[280px] min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-gutter w-full h-16 fixed top-0 right-0 md:left-[280px] bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary font-title-sm text-title-sm border-b border-outline-variant shadow-sm z-10 duration-150">
+<div class="flex items-center gap-4 flex-1">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative w-full max-w-md hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-transparent focus:border-on-tertiary-container focus:ring-2 focus:ring-on-tertiary-container/20 rounded-lg font-body-sm text-body-sm text-on-surface" placeholder="Rechercher..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="ml-4 pl-4 border-l border-outline-variant">
+<img alt="Profil Utilisateur" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of an administrative user, brightly lit against a neutral corporate background, wearing standard business attire. Sharp focus, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfYz5Ai3Whn6mwEB3rp7_Px7DFSz-BpN7-OXLX-GjTcry2EBEfwdzBj7H6xlG4HZi-AocB4J-vHts1OWqA6XHvDb7pEaqhri2xUCHANHcEPyJ1308E7mjiCof9Nihf1vNldXXXM_bssQRkwVU8j5CJ7fFIrFPWQKc9RpH-a-LbxruQEz9VgiZTLGGFCsT_qPDhxkmQp9-93jPnQ5wd7IMKEUY-psayAt-7JM169JaOJ5W9iWDR-umj"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 pt-24 px-gutter pb-xl max-w-container-max-width mx-auto w-full">
+<div class="mb-xl flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Génération de Rapports</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Générez et téléchargez des rapports d'analyse pour le parc informatique.</p>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Rapports Prédéfinis Section -->
+<section class="lg:col-span-8 flex flex-col gap-md">
+<h3 class="font-title-sm text-title-sm text-primary mb-2 border-b border-outline-variant pb-2">Rapports Prédéfinis</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-lg hover:shadow-md transition-shadow flex flex-col h-full relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-on-tertiary-container group-hover:w-2 transition-all"></div>
+<div class="flex items-start justify-between mb-4 pl-2">
+<div class="p-3 bg-surface-container-low rounded-lg text-primary">
+<span class="material-symbols-outlined fill text-3xl">inventory_2</span>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps px-2 py-1 rounded">Quotidien</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface pl-2 mb-2">Inventaire Global</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-2 mb-6 flex-grow">Aperçu complet de tous les matériels enregistrés, leurs statuts actuels et leurs affectations.</p>
+<div class="flex gap-2 pl-2 mt-auto">
+<button class="flex-1 flex items-center justify-center gap-2 bg-on-tertiary-container text-on-tertiary font-data-tabular text-data-tabular py-2 px-4 rounded-lg hover:bg-on-tertiary-fixed-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                                    PDF
+                                </button>
+<button class="flex-1 flex items-center justify-center gap-2 border border-secondary text-secondary font-data-tabular text-data-tabular py-2 px-4 rounded-lg hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">table_view</span>
+                                    Excel
+                                </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-lg hover:shadow-md transition-shadow flex flex-col h-full relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary group-hover:w-2 transition-all"></div>
+<div class="flex items-start justify-between mb-4 pl-2">
+<div class="p-3 bg-surface-container-low rounded-lg text-secondary">
+<span class="material-symbols-outlined fill text-3xl">engineering</span>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps px-2 py-1 rounded">Hebdomadaire</span>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface pl-2 mb-2">État de la Maintenance</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-2 mb-6 flex-grow">Liste détaillée des équipements actuellement en réparation, réparés récemment et coûts associés.</p>
+<div class="flex gap-2 pl-2 mt-auto">
+<button class="flex-1 flex items-center justify-center gap-2 bg-on-tertiary-container text-on-tertiary font-data-tabular text-data-tabular py-2 px-4 rounded-lg hover:bg-on-tertiary-fixed-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                                    PDF
+                                </button>
+<button class="flex-1 flex items-center justify-center gap-2 border border-secondary text-secondary font-data-tabular text-data-tabular py-2 px-4 rounded-lg hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">table_view</span>
+                                    Excel
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Rapports Personnalisés Section -->
+<aside class="lg:col-span-4 flex flex-col">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-lg h-full">
+<h3 class="font-title-sm text-title-sm text-primary mb-4 border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">tune</span>
+                            Rapport Personnalisé
+                        </h3>
+<form class="flex flex-col gap-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Période</label>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="text-xs text-outline mb-1 block">Date de début</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg font-body-sm text-body-sm px-3 py-2 focus:ring-2 focus:ring-on-tertiary-container focus:border-on-tertiary-container" type="date"/>
+</div>
+<div>
+<label class="text-xs text-outline mb-1 block">Date de fin</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg font-body-sm text-body-sm px-3 py-2 focus:ring-2 focus:ring-on-tertiary-container focus:border-on-tertiary-container" type="date"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Catégories de Données</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 text-on-tertiary-container border-outline-variant rounded focus:ring-on-tertiary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface flex-1">Matériels</span>
+<span class="material-symbols-outlined text-outline">computer</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 text-on-tertiary-container border-outline-variant rounded focus:ring-on-tertiary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface flex-1">Tickets &amp; Interventions</span>
+<span class="material-symbols-outlined text-outline">confirmation_number</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 text-on-tertiary-container border-outline-variant rounded focus:ring-on-tertiary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface flex-1">Historique de Maintenance</span>
+<span class="material-symbols-outlined text-outline">build</span>
+</label>
+</div>
+<button class="mt-4 w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-title-sm text-title-sm py-3 px-4 rounded-lg hover:bg-primary-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined">analytics</span>
+                                Générer le rapport
+                            </button>
+</form>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>

@@ -16,6 +16,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/database/seed/index.ts",
+    "db:demo": "tsx src/database/seed/index.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed"
   },
   "keywords": [

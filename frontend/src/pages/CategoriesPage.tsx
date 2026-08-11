@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, IconButton, Switch, TextField, Tooltip } from '@mui/material';
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, IconButton, Switch, TextField, Tooltip } from '@mui/material';
 import { DataGrid, type GridColDef, type GridRowParams } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useMemo, useState } from 'react';
 import { categoriesApi } from '../api/services';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { ListPanel } from '../components/ListPanel';
 import { PageHeader } from '../components/PageHeader';
 import { useAuth } from '../contexts/AuthContext';
 import { usePaginatedList } from '../hooks/usePaginatedList';
@@ -144,31 +145,26 @@ export const CategoriesPage = () => {
 
       {(error || formError) && <Alert severity="error" className="mb-4">{error ?? formError}</Alert>}
 
-      <Card>
-        <Box className="p-4">
-          <TextField
-            size="small"
-            label="Rechercher"
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="mb-4 w-full max-w-sm"
-          />
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            loading={loading}
-            autoHeight
-            disableRowSelectionOnClick
-            paginationMode="server"
-            rowCount={meta.total}
-            paginationModel={{ page, pageSize }}
-            onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
-            onRowDoubleClick={canWrite ? (params: GridRowParams<CategorieRow>) => openEdit(params.row) : undefined}
-            pageSizeOptions={[10, 25, 50]}
-            sx={canWrite ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : undefined}
-          />
-        </Box>
-      </Card>
+      <ListPanel
+        search={search}
+        onSearchChange={(v) => { setSearch(v); setPage(0); }}
+        searchPlaceholder="Rechercher une catégorie…"
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          disableRowSelectionOnClick
+          rowHeight={56}
+          paginationMode="server"
+          rowCount={meta.total}
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
+          onRowDoubleClick={canWrite ? (params: GridRowParams<CategorieRow>) => openEdit(params.row) : undefined}
+          pageSizeOptions={[10, 25, 50]}
+          sx={{ height: '100%', ...(canWrite ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : {}) }}
+        />
+      </ListPanel>
 
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle>{editRow ? 'Modifier la catégorie' : 'Nouvelle catégorie'}</DialogTitle>

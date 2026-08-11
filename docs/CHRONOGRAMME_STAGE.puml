@@ -1,0 +1,121 @@
+@startgantt
+title Chronogramme du stage — SI Parc Informatique MFA
+printscale weekly
+saturday are closed
+sunday are closed
+
+Project starts 2026-02-02
+
+'======== Légende des couleurs ========
+' Bleu   : cadrage / analyse
+' Orange : outillage
+' Vert   : sprints de développement
+' Violet : tests / recette
+' Gris   : rédaction mémoire (parallèle)
+
+'======== Phase cadrage ========
+-- Cadrage --
+[Analyse de l'existant] as AE lasts 15 days
+AE starts 2026-02-02
+AE is colored in DeepSkyBlue
+
+[Proposition du thème de stage] as PT lasts 8 days
+PT starts at AE's end
+PT is colored in CornflowerBlue
+
+[Analyse conceptuelle (Scrum, backlog, UML)] as AC lasts 18 days
+AC starts at PT's end
+AC is colored in RoyalBlue
+
+'======== Outillage ========
+-- Installation & cadrage technique --
+[Installation des outils (Node, PostgreSQL, Git, IDE)] as OUT lasts 7 days
+OUT starts 2026-03-02
+OUT is colored in DarkOrange
+
+[Mise en place projet (repo, BDD, CI locale)] as MP lasts 7 days
+MP starts at OUT's end
+MP is colored in Orange
+
+'======== Releases / Sprints ========
+-- Développement — Release 1 Socle --
+[Sprint 1 — Authentification & profil] as S1 lasts 10 days
+S1 starts 2026-03-16
+S1 is colored in MediumSeaGreen
+
+[Sprint 2 — Utilisateurs, services, catégories] as S2 lasts 10 days
+S2 starts at S1's end
+S2 is colored in MediumSeaGreen
+
+[Sprint 3 — Inventaire matériels] as S3 lasts 10 days
+S3 starts at S2's end
+S3 is colored in MediumSeaGreen
+
+-- Développement — Release 2 Interventions --
+[Sprint 4 — Affectations] as S4 lasts 10 days
+S4 starts at S3's end
+S4 is colored in SeaGreen
+
+[Sprint 5 — Tickets (création, workflow, PJ)] as S5 lasts 10 days
+S5 starts at S4's end
+S5 is colored in SeaGreen
+
+[Sprint 6 — Notifications] as S6 lasts 10 days
+S6 starts at S5's end
+S6 is colored in SeaGreen
+
+-- Développement — Release 3 Pilotage --
+[Sprint 7 — Maintenances] as S7 lasts 10 days
+S7 starts at S6's end
+S7 is colored in ForestGreen
+
+[Sprint 8 — Dashboard KPI, pilotage & SLA] as S8 lasts 10 days
+S8 starts at S7's end
+S8 is colored in ForestGreen
+
+-- Développement — Release 4 Conformité --
+[Sprint 9 — Rapports PDF/Excel & journal d'audit] as S9 lasts 10 days
+S9 starts at S8's end
+S9 is colored in DarkGreen
+
+[Sprint 10 — Seeds démo, polish UI, doc] as S10 lasts 10 days
+S10 starts at S9's end
+S10 is colored in DarkGreen
+
+'======== Qualité ========
+-- Tests & recette --
+[Tests unitaires / API (au fil des sprints)] as TST lasts 70 days
+TST starts 2026-03-23
+TST is colored in MediumPurple
+
+[Recette fonctionnelle & correctifs] as REC lasts 12 days
+REC starts at S10's end
+REC is colored in BlueViolet
+
+[Préparation démonstration / soutenance] as DEMO lasts 8 days
+DEMO starts at REC's end
+DEMO is colored in SlateBlue
+
+'======== Mémoire (parallèle sur toute la durée) ========
+-- Rédaction du mémoire (parallèle) --
+[Rédaction mémoire — introduction & existant] as M1 lasts 25 days
+M1 starts 2026-02-09
+M1 is colored in Gray
+
+[Rédaction mémoire — analyse conceptuelle] as M2 lasts 25 days
+M2 starts 2026-03-09
+M2 is colored in Gray
+
+[Rédaction mémoire — réalisation & sprints] as M3 lasts 55 days
+M3 starts 2026-04-06
+M3 is colored in DarkGray
+
+[Rédaction mémoire — tests, conclusion, relecture] as M4 lasts 30 days
+M4 starts 2026-06-01
+M4 is colored in DimGray
+
+[Finalisation mémoire & annexes] as M5 lasts 12 days
+M5 starts at DEMO's start
+M5 is colored in Black
+
+@endgantt

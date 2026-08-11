@@ -221,9 +221,13 @@ export const TicketDetailPage = () => {
               {ticket.materiel && (
                 <Typography variant="body2">
                   Matériel :{' '}
-                  <Link to={`/materiels/${ticket.materiel.id}`} className="text-[#1a365d] underline">
+                  <Box
+                    component={Link}
+                    to={`/materiels/${ticket.materiel.id}`}
+                    sx={{ color: 'primary.main', textDecoration: 'underline' }}
+                  >
                     {ticket.materiel.codeMateriel}
-                  </Link>
+                  </Box>
                 </Typography>
               )}
               {ticket.assignee && (
@@ -243,7 +247,7 @@ export const TicketDetailPage = () => {
           {isStaff && (
             <Card>
               <CardContent className="flex flex-col gap-3">
-                <Typography variant="h6" color="primary.dark">Actions staff</Typography>
+                <Typography variant="h6" color="text.primary">Actions staff</Typography>
                 <TextField
                   select
                   label="Changer le statut"

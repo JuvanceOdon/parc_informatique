@@ -49,6 +49,61 @@ export interface ChartPoint {
   code?: string;
 }
 
+export interface PilotageTicketItem {
+  id: number;
+  numeroTicket: string;
+  titre: string;
+  priorite: string;
+  statut: string;
+  createdAt: string;
+  assigneeId: number | null;
+  demandeurId: number;
+  slaHeures: number;
+  slaDepasse: boolean;
+  heuresDepassement: number;
+}
+
+export interface PilotageMaintenanceItem {
+  id: number;
+  numeroMaintenance: string;
+  titre: string;
+  type: string;
+  statut: string;
+  datePlanifiee: string | null;
+  dateDebut: string | null;
+  technicienId: number | null;
+  materielId: number;
+  motifRetard: 'PLANIFIEE_DEPASSEE' | 'INTERVENTION_PROLONGEE' | null;
+}
+
+export interface PilotageGarantieItem {
+  id: number;
+  codeMateriel: string;
+  designation: string;
+  dateFinGarantie: string;
+  joursRestants: number;
+}
+
+export interface DashboardPilotage {
+  aTraiter: {
+    ticketsUrgents: PilotageTicketItem[];
+    ticketsSlaDepasses: PilotageTicketItem[];
+    maintenancesEnRetard: PilotageMaintenanceItem[];
+    garantiesExpirant: PilotageGarantieItem[];
+  };
+  maCharge: {
+    tickets: PilotageTicketItem[];
+    maintenances: PilotageMaintenanceItem[];
+  };
+  sla: {
+    ticketsOuverts: number;
+    ticketsDansLesDelais: number;
+    ticketsSlaDepasses: number;
+    tauxRespectSla: number;
+    regles: Array<{ priorite: string; delaiHeures: number }>;
+  };
+}
+
 export interface DashboardData {
   kpi: {
     totalMateriels: number;
@@ -87,6 +142,7 @@ export interface DashboardData {
       fermes: number;
     }>;
   };
+  pilotage: DashboardPilotage;
 }
 
 export interface Notification {

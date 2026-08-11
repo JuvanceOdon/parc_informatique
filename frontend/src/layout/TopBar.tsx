@@ -1,7 +1,9 @@
 import {
   AppBar,
+  Avatar,
   Badge,
   Box,
+  ButtonBase,
   IconButton,
   Toolbar,
   Typography,
@@ -9,23 +11,32 @@ import {
   MenuItem,
   ListItemText,
   Divider,
+  Tooltip,
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import LogoutIcon from '@mui/icons-material/Logout';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useThemeMode } from '../contexts/ThemeModeContext';
+import { ProfilePopover } from '../components/ProfilePopover';
 import { notificationsApi } from '../api/services';
 import type { Notification } from '../types';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 export const TopBar = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { isDark, toggleMode } = useThemeMode();
   const [unread, setUnread] = useState(0);
-  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
+  const [notifAnchor, setNotifAnchor] = useState<null | HTMLElement>(null);
+  const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const [items, setItems] = useState<Notification[]>([]);
+
+  const initials = user
+    ? `${user.prenom?.[0] ?? ''}${user.nom?.[0] ?? ''}`.toUpperCase() || '?'
+    : '?';
 
   const loadNotifications = async () => {
     try {
@@ -54,35 +65,48 @@ export const TopBar = () => {
     setItems((prev) => prev.map((n) => ({ ...n, lu: true })));
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
-
   return (
     <AppBar
       position="sticky"
       elevation={0}
       sx={{
-        bgcolor: 'background.paper',
+        bgcolor: (t) => (t.palette.mode === 'light' ? 'rgba(255,255,255,0.72)' : 'background.paper'),
         color: 'text.primary',
-        borderBottom: '1px solid #e2e8f0',
+        borderBottom: 1,
+        borderColor: 'divider',
+        backdropFilter: 'blur(10px)',
       }}
     >
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 600 }}>
+      <Toolbar sx={{ minHeight: { xs: 64, sm: 68 }, gap: 0.5 }}>
+        <Typography
+          variant="h6"
+          sx={{
+            flexGrow: 1,
+            fontWeight: 700,
+            fontSize: { xs: 14, sm: 16 },
+            letterSpacing: '-0.02em',
+          }}
+        >
           Système de Gestion du Parc Informatique
         </Typography>
-        <IconButton onClick={(e) => setAnchor(e.currentTarget)}>
+
+        <Tooltip title={isDark ? 'Mode clair' : 'Mode sombre'}>
+          <IconButton onClick={toggleMode} color="inherit" aria-label="Basculer le thème">
+            {isDark ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+          </IconButton>
+        </Tooltip>
+
+        <IconButton onClick={(e) => setNotifAnchor(e.currentTarget)} color="inherit" aria-label="Notifications">
           <Badge badgeContent={unread} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
+
         <Menu
-          anchorEl={anchor}
-          open={Boolean(anchor)}
-          onClose={() => setAnchor(null)}
-          slotProps={{ paper: { sx: { width: 360, maxHeight: 420 } } }}
+          anchorEl={notifAnchor}
+          open={Boolean(notifAnchor)}
+          onClose={() => setNotifAnchor(null)}
+          slotProps={{ paper: { sx: { width: 360, maxHeight: 420, borderRadius: 3 } } }}
         >
           <Box className="flex items-center justify-between px-4 py-2">
             <Typography sx={{ fontWeight: 600 }}>Notifications</Typography>
@@ -131,14 +155,67 @@ export const TopBar = () => {
             ))
           )}
         </Menu>
-        <Box className="ml-4 hidden items-center gap-2 sm:flex">
-          <Typography variant="body2">
-            {user?.prenom} {user?.nom}
-          </Typography>
-          <IconButton color="inherit" onClick={() => void handleLogout()} title="Déconnexion">
-            <LogoutIcon />
-          </IconButton>
-        </Box>
+
+        {user && (
+          <>
+            <ButtonBase
+              onClick={(e) => setProfileAnchor(e.currentTarget)}
+              aria-label="Ouvrir mon profil"
+              aria-expanded={Boolean(profileAnchor)}
+              sx={{
+                ml: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                borderRadius: 999,
+                pl: 0.5,
+                pr: { xs: 0.75, sm: 1.5 },
+                py: 0.5,
+                border: 1,
+                borderColor: profileAnchor ? 'primary.main' : 'transparent',
+                bgcolor: profileAnchor ? 'action.selected' : 'transparent',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease',
+                '&:hover': { bgcolor: 'action.hover' },
+              }}
+            >
+              <Avatar
+                sx={{
+                  width: 36,
+                  height: 36,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  bgcolor: 'primary.main',
+                  color: 'primary.contrastText',
+                }}
+              >
+                {initials}
+              </Avatar>
+              <Box sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'left', minWidth: 0 }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                  {user.prenom} {user.nom}
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.1 }}>
+                  {user.role.libelle}
+                </Typography>
+              </Box>
+              <KeyboardArrowDownIcon
+                sx={{
+                  fontSize: 18,
+                  color: 'text.secondary',
+                  display: { xs: 'none', sm: 'block' },
+                  transform: profileAnchor ? 'rotate(180deg)' : 'none',
+                  transition: 'transform 0.2s ease',
+                }}
+              />
+            </ButtonBase>
+
+            <ProfilePopover
+              anchorEl={profileAnchor}
+              open={Boolean(profileAnchor)}
+              onClose={() => setProfileAnchor(null)}
+            />
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

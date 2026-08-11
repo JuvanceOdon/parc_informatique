@@ -4,6 +4,9 @@ import type {
   GroupCountRow,
   MonthlyTicketCountRow,
   MonthlyTypeCountRow,
+  OpenTicketRow,
+  ActiveMaintenanceRow,
+  GarantieRow,
 } from './dashboard.types.js';
 
 export interface IDashboardRepository {
@@ -16,6 +19,9 @@ export interface IDashboardRepository {
   getTicketRepartitionByPriorite(): Promise<GroupCountRow[]>;
   getInterventionsMensuelles(months: number): Promise<MonthlyTypeCountRow[]>;
   getTicketsParMois(months: number): Promise<MonthlyTicketCountRow[]>;
+  getOpenTickets(): Promise<OpenTicketRow[]>;
+  getActiveMaintenances(): Promise<ActiveMaintenanceRow[]>;
+  getGarantiesExpirant(days?: number): Promise<GarantieRow[]>;
 }
 
 export type { DashboardQuery };

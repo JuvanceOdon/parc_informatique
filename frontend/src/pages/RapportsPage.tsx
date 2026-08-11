@@ -43,7 +43,7 @@ export const RapportsPage = () => {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent className="flex flex-col gap-4">
-              <Typography variant="h6" color="primary.dark">
+              <Typography variant="h6" color="text.primary">
                 Rapport mensuel
               </Typography>
               <TextField select label="Mois" value={mois} onChange={(e) => setMois(Number(e.target.value))}>
@@ -57,6 +57,7 @@ export const RapportsPage = () => {
               <FormatSelect format={format} onChange={setFormat} />
               <Button
                 variant="contained"
+                color="secondary"
                 startIcon={<DownloadIcon />}
                 onClick={() => void handleDownload('mensuel')}
                 disabled={loading !== null}
@@ -70,13 +71,14 @@ export const RapportsPage = () => {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent className="flex flex-col gap-4">
-              <Typography variant="h6" color="primary.dark">
+              <Typography variant="h6" color="text.primary">
                 Rapport annuel
               </Typography>
               <TextField label="Année" type="number" value={annee} onChange={(e) => setAnnee(Number(e.target.value))} />
               <FormatSelect format={format} onChange={setFormat} />
               <Button
                 variant="contained"
+                color="secondary"
                 startIcon={<DownloadIcon />}
                 onClick={() => void handleDownload('annuel')}
                 disabled={loading !== null}

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
+import { ThemeModeProvider } from '../contexts/ThemeModeContext';
 import { LoginPage } from './LoginPage';
 
 vi.mock('../contexts/AuthContext', () => ({
@@ -17,13 +18,15 @@ vi.mock('../contexts/AuthContext', () => ({
 describe('LoginPage', () => {
   it('renders login form fields', () => {
     render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>,
+      <ThemeModeProvider>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </ThemeModeProvider>,
     );
 
-    expect(screen.getByLabelText(/Matricule ou email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Mot de passe/i)).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /Identifiant \/ Matricule/i })).toBeInTheDocument();
+    expect(document.querySelector('input[type="password"]')).toBeTruthy();
     expect(screen.getByRole('button', { name: /Se connecter/i })).toBeInTheDocument();
   });
 });

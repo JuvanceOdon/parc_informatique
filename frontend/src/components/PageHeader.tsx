@@ -8,13 +8,22 @@ interface PageHeaderProps {
 }
 
 export const PageHeader = ({ title, subtitle, action }: PageHeaderProps) => (
-  <Box className="mb-6 flex flex-wrap items-start justify-between gap-4">
+  <Box
+    className="mb-6 flex flex-wrap items-end justify-between gap-4"
+    sx={{
+      pb: 0.5,
+    }}
+  >
     <Box>
-      <Typography variant="h5" color="primary.dark">
+      <Typography
+        variant="h4"
+        color="text.primary"
+        sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', sm: '1.85rem' }, letterSpacing: '-0.03em' }}
+      >
         {title}
       </Typography>
       {subtitle && (
-        <Typography variant="body2" color="text.secondary" className="mt-1">
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, maxWidth: 520 }}>
           {subtitle}
         </Typography>
       )}

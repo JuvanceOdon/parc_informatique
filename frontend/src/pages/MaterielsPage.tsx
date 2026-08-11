@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, TextField } from '@mui/material';
+import { Alert, Box, Button } from '@mui/material';
 import { DataGrid, type GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { materielsApi } from '../api/services';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { ListPanel } from '../components/ListPanel';
 import { MaterielFormDialog } from '../components/forms/MaterielFormDialog';
 import { PageHeader } from '../components/PageHeader';
 import { MATERIEL_ETAT_LABELS, MATERIEL_STATUT_LABELS } from '../constants/labels';
@@ -155,30 +156,26 @@ export const MaterielsPage = () => {
 
       {(error || actionError) && <Alert severity="error" className="mb-4">{error ?? actionError}</Alert>}
 
-      <Card>
-        <Box className="p-4">
-          <TextField
-            size="small"
-            label="Rechercher"
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="mb-4 w-full max-w-sm"
-          />
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            loading={loading}
-            autoHeight
-            disableRowSelectionOnClick
-            paginationMode="server"
-            rowCount={meta.total}
-            paginationModel={{ page, pageSize }}
-            onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
-            onRowDoubleClick={(params) => navigate(`/materiels/${params.id}`)}
-            pageSizeOptions={[10, 25, 50]}
-          />
-        </Box>
-      </Card>
+      <ListPanel
+        search={search}
+        onSearchChange={(v) => { setSearch(v); setPage(0); }}
+        searchPlaceholder="Rechercher un matériel…"
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          disableRowSelectionOnClick
+          rowHeight={56}
+          paginationMode="server"
+          rowCount={meta.total}
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={(m) => { setPage(m.page); setPageSize(m.pageSize); }}
+          onRowDoubleClick={(params) => navigate(`/materiels/${params.id}`)}
+          pageSizeOptions={[10, 25, 50]}
+          sx={{ height: '100%', '& .MuiDataGrid-row': { cursor: 'pointer' } }}
+        />
+      </ListPanel>
 
       <MaterielFormDialog
         open={createOpen}

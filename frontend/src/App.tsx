@@ -17,7 +17,6 @@ const TicketDetailPage = lazy(() => import('./pages/TicketDetailPage').then((m) 
 const MaintenancesPage = lazy(() => import('./pages/MaintenancesPage').then((m) => ({ default: m.MaintenancesPage })));
 const RapportsPage = lazy(() => import('./pages/RapportsPage').then((m) => ({ default: m.RapportsPage })));
 const JournalAuditPage = lazy(() => import('./pages/JournalAuditPage').then((m) => ({ default: m.JournalAuditPage })));
-const ParametresPage = lazy(() => import('./pages/ParametresPage').then((m) => ({ default: m.ParametresPage })));
 
 const Lazy = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<PageLoader />}>{children}</Suspense>
@@ -56,7 +55,6 @@ const App = () => (
         <Route path="tickets" element={<Lazy><TicketsPage /></Lazy>} />
         <Route path="tickets/:id" element={<Lazy><TicketDetailPage /></Lazy>} />
         <Route path="categories" element={<Lazy><CategoriesPage /></Lazy>} />
-        <Route path="parametres" element={<Lazy><ParametresPage /></Lazy>} />
 
         <Route element={<ProtectedRoute roles={['ADMIN', 'CHEF_SERVICE', 'TECHNICIEN']} />}>
           <Route path="maintenances" element={<Lazy><MaintenancesPage /></Lazy>} />

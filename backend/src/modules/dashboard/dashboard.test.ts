@@ -15,5 +15,15 @@ describe('Dashboard API', () => {
       ticketsOuverts: expect.any(Number),
     });
     expect(response.body.data.graphiques.ticketsParMois).toBeInstanceOf(Array);
+    expect(response.body.data.pilotage).toMatchObject({
+      aTraiter: expect.any(Object),
+      maCharge: expect.any(Object),
+      sla: {
+        ticketsOuverts: expect.any(Number),
+        ticketsSlaDepasses: expect.any(Number),
+        tauxRespectSla: expect.any(Number),
+        regles: expect.any(Array),
+      },
+    });
   });
 });

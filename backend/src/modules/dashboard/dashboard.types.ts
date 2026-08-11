@@ -40,6 +40,68 @@ export interface DashboardKpi {
   garantiesExpirant30Jours: number;
 }
 
+export interface PilotageTicketItem {
+  id: number;
+  numeroTicket: string;
+  titre: string;
+  priorite: string;
+  statut: string;
+  createdAt: Date;
+  assigneeId: number | null;
+  demandeurId: number;
+  slaHeures: number;
+  slaDepasse: boolean;
+  heuresDepassement: number;
+}
+
+export interface PilotageMaintenanceItem {
+  id: number;
+  numeroMaintenance: string;
+  titre: string;
+  type: string;
+  statut: string;
+  datePlanifiee: Date | null;
+  dateDebut: Date | null;
+  technicienId: number | null;
+  materielId: number;
+  motifRetard: 'PLANIFIEE_DEPASSEE' | 'INTERVENTION_PROLONGEE' | null;
+}
+
+export interface PilotageGarantieItem {
+  id: number;
+  codeMateriel: string;
+  designation: string;
+  dateFinGarantie: string;
+  joursRestants: number;
+}
+
+export interface SlaRegle {
+  priorite: string;
+  delaiHeures: number;
+}
+
+export interface DashboardSlaSummary {
+  ticketsOuverts: number;
+  ticketsDansLesDelais: number;
+  ticketsSlaDepasses: number;
+  tauxRespectSla: number;
+  regles: SlaRegle[];
+}
+
+export interface DashboardPilotage {
+  aTraiter: {
+    ticketsUrgents: PilotageTicketItem[];
+    ticketsSlaDepasses: PilotageTicketItem[];
+    maintenancesEnRetard: PilotageMaintenanceItem[];
+    garantiesExpirant: PilotageGarantieItem[];
+  };
+  maCharge: {
+    tickets: PilotageTicketItem[];
+    maintenances: PilotageMaintenanceItem[];
+  };
+  sla: DashboardSlaSummary;
+}
+
 export interface DashboardResponse {
   kpi: DashboardKpi;
   repartitionMateriels: {
@@ -57,6 +119,7 @@ export interface DashboardResponse {
     ticketsParMois: MonthlyTicketPoint[];
     maintenancesParMois: MonthlyInterventionPoint[];
   };
+  pilotage: DashboardPilotage;
   generatedAt: Date;
 }
 
@@ -82,4 +145,34 @@ export interface MonthlyTicketCountRow {
   mois: string;
   statut: string;
   count: number;
+}
+
+export interface OpenTicketRow {
+  id: number;
+  numeroTicket: string;
+  titre: string;
+  priorite: string;
+  statut: string;
+  createdAt: Date;
+  assigneeId: number | null;
+  demandeurId: number;
+}
+
+export interface ActiveMaintenanceRow {
+  id: number;
+  numeroMaintenance: string;
+  titre: string;
+  type: string;
+  statut: string;
+  datePlanifiee: Date | null;
+  dateDebut: Date | null;
+  technicienId: number | null;
+  materielId: number;
+}
+
+export interface GarantieRow {
+  id: number;
+  codeMateriel: string;
+  designation: string;
+  dateFinGarantie: string;
 }

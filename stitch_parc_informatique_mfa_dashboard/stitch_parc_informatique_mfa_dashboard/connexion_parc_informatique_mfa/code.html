@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Connexion - Parc Informatique MFA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c4c6cf",
+                    "surface-container-low": "#eff4ff",
+                    "on-primary-container": "#86a0cd",
+                    "tertiary-fixed": "#ffddba",
+                    "on-tertiary-fixed": "#2b1700",
+                    "surface-container": "#e5eeff",
+                    "tertiary-fixed-dim": "#f2bc82",
+                    "inverse-surface": "#223144",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "surface-tint": "#455f88",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#adc7f7",
+                    "secondary-fixed-dim": "#a5c8ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-fixed": "#001b3c",
+                    "on-tertiary-fixed-variant": "#633f0f",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#d4e4fc",
+                    "outline": "#74777f",
+                    "on-tertiary-container": "#c6955e",
+                    "on-secondary-fixed-variant": "#204877",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-container-high": "#dce9ff",
+                    "surface-dim": "#ccdbf4",
+                    "secondary": "#3b6090",
+                    "on-surface-variant": "#43474e",
+                    "on-background": "#0d1c2e",
+                    "tertiary-container": "#4f2e00",
+                    "on-surface": "#0d1c2e",
+                    "tertiary": "#321b00",
+                    "primary-fixed-dim": "#adc7f7",
+                    "background": "#f8f9ff",
+                    "primary-fixed": "#d6e3ff",
+                    "primary": "#002045",
+                    "on-secondary-fixed": "#001c3a",
+                    "surface-container-highest": "#d4e4fc",
+                    "secondary-container": "#a5c8ff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#2e5484",
+                    "secondary-fixed": "#d4e3ff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#1a365d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "container-max-width": "1440px",
+                    "lg": "24px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "xs": "4px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "data-tabular": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "title-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "data-tabular": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "title-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-primary to-primary-container min-h-screen flex items-center justify-center p-md relative overflow-hidden">
+<!-- Atmospheric Background Pattern -->
+<div class="absolute inset-0 pointer-events-none opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+<!-- Main Auth Container -->
+<main class="w-full max-w-md bg-surface-container-lowest rounded-lg shadow-2xl relative z-10 overflow-hidden flex flex-col border border-outline-variant/30">
+<!-- Header Section -->
+<header class="p-xl pb-lg flex flex-col items-center text-center border-b border-outline-variant">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-md border border-outline-variant">
+<span class="material-symbols-outlined text-secondary icon-fill" style="font-size: 32px;">security</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary mb-xs">Parc Informatique MFA</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px]">Gestion du parc informatique et suivi des interventions</p>
+</header>
+<!-- Form Section -->
+<form class="p-xl flex flex-col gap-lg bg-surface-bright">
+<!-- Identifiant Field -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface" for="identifiant">Identifiant / Matricule</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" style="font-size: 20px;">badge</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded pl-xl pr-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="identifiant" name="identifiant" required="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface flex justify-between items-center" for="password">
+<span>Mot de passe</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" style="font-size: 20px;">lock</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded pl-xl pr-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" id="password" name="password" required="" type="password"/>
+</div>
+</div>
+<!-- Action Area -->
+<div class="pt-sm flex flex-col gap-md">
+<button class="w-full bg-on-tertiary-container text-surface-container-lowest font-title-sm text-title-sm rounded py-md px-lg hover:bg-on-tertiary-container/90 focus:ring-4 focus:ring-on-tertiary-container/30 transition-all shadow-sm flex items-center justify-center gap-sm" type="submit">
+                    Se connecter
+                    <span class="material-symbols-outlined" style="font-size: 20px;">login</span>
+</button>
+</div>
+</form>
+<!-- Footer Section -->
+<footer class="bg-surface-container-low p-md border-t border-outline-variant text-center">
+<p class="font-body-sm text-body-sm text-outline flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined" style="font-size: 16px;">gavel</span>
+                Ministère des Forces Armées
+            </p>
+</footer>
+</main>
+</body></html>

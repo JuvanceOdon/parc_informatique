@@ -153,7 +153,7 @@ export const MaterielDetailPage = () => {
         <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent className="flex flex-col gap-2">
-              <Typography variant="h6" color="primary.dark">Statut</Typography>
+              <Typography variant="h6" color="text.primary">Statut</Typography>
               <Chip label={MATERIEL_STATUT_LABELS[materiel.statut] ?? materiel.statut} color="primary" />
               {materiel.garantieExpiree && <Chip label="Garantie expirée" color="error" size="small" />}
               {materiel.garantieExpireBientot && !materiel.garantieExpiree && (

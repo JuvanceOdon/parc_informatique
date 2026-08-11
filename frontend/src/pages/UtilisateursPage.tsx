@@ -2,7 +2,6 @@ import {
   Alert,
   Box,
   Button,
-  Card,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,6 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useMemo, useState } from 'react';
 import { utilisateursApi } from '../api/services';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { ListPanel } from '../components/ListPanel';
 import { PageHeader } from '../components/PageHeader';
 import { ROLE_LABELS } from '../constants/labels';
 import { useAuth } from '../contexts/AuthContext';
@@ -209,37 +209,32 @@ export const UtilisateursPage = () => {
         </Alert>
       )}
 
-      <Card>
-        <Box className="p-4">
-          <TextField
-            size="small"
-            label="Rechercher"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setPage(0);
-            }}
-            className="mb-4 w-full max-w-sm"
-          />
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            loading={loading}
-            autoHeight
-            disableRowSelectionOnClick
-            paginationMode="server"
-            rowCount={meta.total}
-            paginationModel={{ page, pageSize }}
-            onPaginationModelChange={(model) => {
-              setPage(model.page);
-              setPageSize(model.pageSize);
-            }}
-            onRowDoubleClick={canWrite ? (params: GridRowParams<UtilisateurRow>) => openEdit(params.row) : undefined}
-            pageSizeOptions={[10, 25, 50]}
-            sx={canWrite ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : undefined}
-          />
-        </Box>
-      </Card>
+      <ListPanel
+        search={search}
+        onSearchChange={(v) => {
+          setSearch(v);
+          setPage(0);
+        }}
+        searchPlaceholder="Rechercher un utilisateur…"
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          disableRowSelectionOnClick
+          rowHeight={56}
+          paginationMode="server"
+          rowCount={meta.total}
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={(model) => {
+            setPage(model.page);
+            setPageSize(model.pageSize);
+          }}
+          onRowDoubleClick={canWrite ? (params: GridRowParams<UtilisateurRow>) => openEdit(params.row) : undefined}
+          pageSizeOptions={[10, 25, 50]}
+          sx={{ height: '100%', ...(canWrite ? { '& .MuiDataGrid-row': { cursor: 'pointer' } } : {}) }}
+        />
+      </ListPanel>
 
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle>{editRow ? 'Modifier l\'utilisateur' : 'Nouvel utilisateur'}</DialogTitle>

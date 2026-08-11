@@ -13,14 +13,15 @@ Ministère des Forces Armées — Madagascar
 4. [Configuration](#4-configuration)
 5. [Démarrage](#5-démarrage)
 6. [Comptes et rôles](#6-comptes-et-rôles)
-7. [Architecture](#7-architecture)
-8. [Backend — API REST](#8-backend--api-rest)
-9. [Frontend — Interface React](#9-frontend--interface-react)
-10. [Base de données](#10-base-de-données)
-11. [Tests](#11-tests)
-12. [Dépannage](#12-dépannage)
-13. [Production](#13-production)
-14. [Feuille de route](#14-feuille-de-route)
+7. [Guide de démonstration](#7-guide-de-démonstration)
+8. [Architecture](#8-architecture)
+9. [Backend — API REST](#9-backend--api-rest)
+10. [Frontend — Interface React](#10-frontend--interface-react)
+11. [Base de données](#11-base-de-données)
+12. [Tests](#12-tests)
+13. [Dépannage](#13-dépannage)
+14. [Production](#14-production)
+15. [Feuille de route](#15-feuille-de-route)
 
 ---
 
@@ -139,13 +140,29 @@ npm run dev
 
 ## 6. Comptes et rôles
 
-### Compte administrateur (seed)
+> **Fichier dédié :** [`COMPTES_DEMO.md`](./COMPTES_DEMO.md) — liste complète des comptes, scénario métier et commande de réinitialisation.
 
-| Champ | Valeur |
-|-------|--------|
-| Matricule | `ADMIN001` |
-| Email | `admin@mfar.gov.mg` |
-| Mot de passe | `Admin@123456` |
+Réinitialiser le jeu de démo :
+
+```bash
+cd backend
+npm run db:demo
+```
+
+### Comptes principaux
+
+| Persona | Matricule | Mot de passe | Rôle |
+|---------|-----------|--------------|------|
+| Administrateur | `ADMIN001` | `Admin@123456` | `ADMIN` |
+| Responsable informatique | `RESP001` | `Demo@123456` | `CHEF_SERVICE` |
+| Chef RH | `CHEF001` | `Demo@123456` | `CHEF_SERVICE` |
+| Chef logistique | `CHEF002` | `Demo@123456` | `CHEF_SERVICE` |
+| Technicien | `TECH001` / `TECH002` | `Demo@123456` | `TECHNICIEN` |
+| Utilisateur | `USER001` / `USER002` / `USER003` | `Demo@123456` | `UTILISATEUR` |
+
+Connexion possible avec le **matricule** ou l’**email** (voir `COMPTES_DEMO.md`).
+
+> **Note :** le responsable informatique est un **chef de service** rattaché au Service Informatique. L’administrateur (`ADMIN`) conserve l’accès exclusif aux utilisateurs et au journal d’audit.
 
 ### Rôles
 
@@ -172,7 +189,182 @@ npm run dev
 
 ---
 
-## 7. Architecture
+## 7. Guide de démonstration
+
+Scénario recommandé pour présenter l’application de bout en bout (~20–30 min).  
+Prérequis : backend + frontend démarrés (section 5) et seed exécuté.
+
+**URL :** http://localhost:5173
+
+### Étape 0 — Préparation
+
+1. Vérifier l’API : http://localhost:3000/api/v1/health
+2. Ouvrir l’application dans le navigateur
+3. Avoir sous la main les 5 comptes de la section 6
+
+---
+
+### Étape 1 — Connexion administrateur
+
+**Compte :** `ADMIN001` / `Admin@123456`
+
+1. Sur la page de connexion, saisir le matricule `ADMIN001` (ou l’email) et le mot de passe
+2. Cliquer sur **Se connecter**
+3. Vérifier l’arrivée sur le **Tableau de bord** (KPI, graphiques)
+4. Dans la barre latérale, constater les menus exclusifs admin : **Utilisateurs**, **Journal d’audit**
+
+**Points à montrer :** branding MFA, menu complet, identité en bas de la sidebar.
+
+---
+
+### Étape 2 — Administration (utilisateurs & services)
+
+Toujours connecté en **ADMIN**.
+
+#### 2.1 Utilisateurs
+
+1. Aller dans **Utilisateurs**
+2. Rechercher `RESP001`, `CHEF001`, `TECH001`, `USER001` pour montrer les comptes seedés
+3. (Optionnel) Créer un nouvel utilisateur de test :
+   - Matricule, email, nom, prénom, mot de passe, rôle, service
+   - Enregistrer puis vérifier qu’il apparaît dans la liste
+
+#### 2.2 Services
+
+1. Aller dans **Services**
+2. Présenter les 3 services seedés : Informatique, RH, Logistique
+3. Ouvrir le **Service Informatique** et montrer que le responsable est **Rakoto Jean** (`RESP001`)
+4. Ouvrir **Ressources Humaines** et montrer le responsable **Rasoanaivo Marie** (`CHEF001`)
+
+#### 2.3 Catégories
+
+1. Aller dans **Catégories**
+2. Montrer les catégories seedées (Ordinateur, Imprimante, Serveur, etc.)
+
+#### 2.4 Journal d’audit
+
+1. Aller dans **Journal d’audit**
+2. Montrer les traces de connexion / actions déjà enregistrées
+
+---
+
+### Étape 3 — Cycle matériel (responsable informatique)
+
+1. Se déconnecter (**Paramètres** → déconnexion, ou déconnexion depuis le profil)
+2. Se connecter avec **`RESP001`** / `Demo@123456`
+3. Vérifier : pas de menu **Utilisateurs** ni **Journal d’audit** ; accès **Services**, **Rapports**, etc.
+
+#### 3.1 Créer un matériel
+
+1. Aller dans **Matériels** → **Nouveau** (ou bouton de création)
+2. Remplir par exemple :
+   - Désignation : `PC Portable Dell Latitude`
+   - Catégorie : Ordinateur
+   - Service : Service Informatique
+   - Statut : En stock
+   - État : Neuf
+   - Dates de garantie (optionnel)
+3. Enregistrer
+4. Ouvrir la fiche **détail** : infos, historique, QR code
+
+#### 3.2 Affecter le matériel
+
+1. Aller dans **Affectations** → créer une affectation
+2. Choisir le matériel créé, l’utilisateur `USER001` (Sophie Razafy), le service RH
+3. Localisation / motif : ex. `Bureau RH - Bureau 12` / `Affectation initiale`
+4. Valider
+5. Retourner sur le matériel : statut passé en **En service**
+
+**Points à montrer :** lien inventaire ↔ utilisateur, traçabilité.
+
+---
+
+### Étape 4 — Demande d’intervention (utilisateur simple)
+
+1. Se déconnecter, se connecter avec **`USER001`** / `Demo@123456`
+2. Montrer un menu restreint (pas de Maintenances / Rapports / Services / Utilisateurs)
+3. Aller dans **Tickets** → créer un ticket :
+   - Titre : `Écran qui clignote`
+   - Description : `Le portable affecté affiche un écran qui clignote depuis ce matin`
+   - Priorité : Haute
+   - Lier le matériel affecté si proposé
+4. Enregistrer et ouvrir le **détail** du ticket (statut **Ouvert**)
+5. (Optionnel) Ajouter un commentaire : `Problème récurrent depuis hier`
+
+**Points à montrer :** parcours métier du demandeur, simplicité du formulaire.
+
+---
+
+### Étape 5 — Traitement technique (technicien)
+
+1. Se déconnecter, se connecter avec **`TECH001`** / `Demo@123456`
+2. Aller dans **Tickets**, ouvrir le ticket créé
+3. **Assigner** le ticket au technicien (soi-même) et passer le statut à **En cours**
+4. Ajouter un commentaire technique : `Diagnostic en cours — carte graphique suspectée`
+5. Aller dans **Maintenances** → créer une maintenance :
+   - Type : Corrective
+   - Matériel / ticket lié
+   - Technicien : `TECH001`
+   - Date planifiée ou démarrage immédiat
+6. Enchaîner le cycle :
+   - **Démarrer** (si planifiée) → statut En cours
+   - Saisir un **diagnostic**
+   - Saisir une **solution** puis terminer
+7. Revenir au ticket : passer en **Résolu** puis **Fermé**
+
+**Points à montrer :** continuum ticket → maintenance → résolution, historique.
+
+---
+
+### Étape 6 — Vue chef de service (RH)
+
+1. Se déconnecter, se connecter avec **`CHEF001`** / `Demo@123456`
+2. Tableau de bord : KPI mis à jour (matériels, tickets)
+3. **Services** : consulter son service RH
+4. **Affectations** / **Tickets** : vue d’ensemble opérationnelle
+5. **Rapports** : télécharger un rapport **mensuel** ou **annuel** (PDF et/ou Excel)
+
+**Points à montrer :** pilotage sans droits d’administration système.
+
+---
+
+### Étape 7 — Synthèse admin (clôture)
+
+1. Se reconnecter en **`ADMIN001`**
+2. **Tableau de bord** : synthèse globale
+3. **Journal d’audit** : connexions et actions des différents acteurs
+4. **Rapports** : export de synthèse pour la présentation
+
+---
+
+### Scénario court (5–8 min)
+
+Si le temps est limité :
+
+| # | Action | Compte |
+|---|--------|--------|
+| 1 | Login + dashboard + utilisateurs | `ADMIN001` |
+| 2 | Créer un matériel + affectation | `RESP001` |
+| 3 | Créer un ticket | `USER001` |
+| 4 | Traiter le ticket / maintenance | `TECH001` |
+| 5 | Télécharger un rapport | `CHEF001` ou `ADMIN001` |
+
+---
+
+### Checklist de démonstration
+
+- [ ] Connexion / déconnexion multi-rôles
+- [ ] Différences de menus selon le rôle
+- [ ] Création matériel + fiche détail + QR
+- [ ] Affectation utilisateur
+- [ ] Cycle de vie ticket (ouvert → en cours → résolu → fermé)
+- [ ] Maintenance corrective liée
+- [ ] Export rapport PDF/Excel
+- [ ] Journal d’audit (admin)
+
+---
+
+## 8. Architecture
 
 ### Backend — couches
 
@@ -207,7 +399,7 @@ src/
 
 ---
 
-## 8. Backend — API REST
+## 9. Backend — API REST
 
 Base URL : **`http://localhost:3000/api/v1`**
 
@@ -258,7 +450,7 @@ Query params communs : `page`, `limit` (max 100), `search`, `sortBy`, `sortOrder
 
 ---
 
-## 9. Frontend — Interface React
+## 10. Frontend — Interface React
 
 ### Pages principales
 
@@ -297,7 +489,7 @@ npm run test:watch # Tests en mode watch
 
 ---
 
-## 10. Base de données
+## 11. Base de données
 
 ### Scripts backend
 
@@ -315,7 +507,7 @@ npm run test:watch # Tests en mode watch
 
 ---
 
-## 11. Tests
+## 12. Tests
 
 ### Backend (Vitest + Supertest)
 
@@ -357,20 +549,21 @@ npm run test:watch  # Mode watch
 
 ---
 
-## 12. Dépannage
+## 13. Dépannage
 
 | Problème | Solution |
 |----------|----------|
 | `ECONNREFUSED` API | Vérifier que le backend tourne sur le port 3000 |
 | Erreur CORS | `CORS_ORIGIN=http://localhost:5173` dans `backend/.env` |
-| Login échoue | Exécuter `npm run db:setup` pour recréer l'admin |
+| Login échoue (admin) | Exécuter `npm run db:seed` ; mot de passe admin = `Admin@123456` |
+| Login échoue (RESP/CHEF/TECH/USER) | Exécuter `npm run db:seed` ; mot de passe démo = `Demo@123456` |
 | Page blanche | Ouvrir la console navigateur, vérifier `npm run build` |
 | Liste utilisateurs vide (affectation) | Seuls les ADMIN voient la liste ; les autres saisissent l'ID utilisateur |
 | Token expiré | Se reconnecter ; le refresh automatique gère la plupart des cas |
 
 ---
 
-## 13. Production
+## 14. Production
 
 ### Backend
 
@@ -398,7 +591,7 @@ Servir le dossier `frontend/dist/` via Nginx, Apache ou un CDN. Configurer le re
 
 ---
 
-## 14. Feuille de route
+## 15. Feuille de route
 
 | Sprint | Module | Statut |
 |--------|--------|--------|
@@ -412,6 +605,10 @@ Servir le dossier `frontend/dist/` via Nginx, Apache ou un CDN. Configurer le re
 
 ## Ressources
 
+- **Chapitre 5 — Analyse conceptuelle (Scrum / UML)** : [`CHAPITRE_5_ANALYSE_CONCEPTUELLE.md`](./CHAPITRE_5_ANALYSE_CONCEPTUELLE.md)
+- **Chronogramme de stage (PlantUML)** : [`CHRONOGRAMME_STAGE.md`](./CHRONOGRAMME_STAGE.md) / [`CHRONOGRAMME_STAGE.puml`](./CHRONOGRAMME_STAGE.puml)
+- **Manuel de démonstration** : [`MANUEL_DEMO.md`](./MANUEL_DEMO.md)
+- Comptes et données démo : [`COMPTES_DEMO.md`](./COMPTES_DEMO.md)
 - Architecture backend : [`backend/docs/ARCHITECTURE.md`](../backend/docs/ARCHITECTURE.md)
 - README backend : [`backend/README.md`](../backend/README.md)
 - README frontend : [`frontend/README.md`](../frontend/README.md)
