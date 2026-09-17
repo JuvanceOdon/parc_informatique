@@ -40,7 +40,12 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Matériels', path: '/materiels', icon: <DevicesIcon /> },
   { label: 'Affectations', path: '/affectations', icon: <SwapHorizIcon /> },
   { label: 'Tickets', path: '/tickets', icon: <ConfirmationNumberIcon /> },
-  { label: 'Maintenances', path: '/maintenances', icon: <BuildIcon /> },
+  {
+    label: 'Maintenances',
+    path: '/maintenances',
+    icon: <BuildIcon />,
+    roles: ['ADMIN', 'CHEF_SERVICE', 'TECHNICIEN'],
+  },
   { label: 'Catégories', path: '/categories', icon: <CategoryIcon /> },
   {
     label: 'Services',

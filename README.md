@@ -10,11 +10,28 @@ parcInformatique/
 └── frontend/    # Interface React (Sprint 14)
 ```
 
-## Développement
+## Lancement (racine)
 
-Le projet est développé **sprint par sprint**. Voir [`docs/GUIDE_COMPLET.md`](docs/GUIDE_COMPLET.md) pour le guide complet.
+Depuis la racine du projet :
 
-### Sprint actuel : Frontend avancé ✅
+```bash
+# 1ère fois : installer les dépendances
+npm run install:all
+npm install
+
+# Démarrer backend + frontend
+npm run dev
+```
+
+Sous Windows, tu peux aussi :
+
+- double-cliquer sur `start.bat`
+- ou exécuter `.\start.ps1` (ajoute `-Install` pour réinstaller les deps)
+
+| Service  | URL |
+|----------|-----|
+| Frontend | http://localhost:5173 |
+| Backend  | http://localhost:3000 |
 
 Documentation complète : [`docs/GUIDE_COMPLET.md`](docs/GUIDE_COMPLET.md)
 
